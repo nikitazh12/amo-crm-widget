@@ -1,29 +1,12 @@
 {
-    "widget":{
-        "name":"Мой виджет",
-        "short_description":"Короткое описание виджета",
-        "description":"Полное описание виджета",
-        "tour_description":"Описание виджета"
+    "widget": {
+        "name": "Google Docs Generator",
+        "short_description": "Генерация документов в Google Docs",
+        "description": "Автоматическая генерация документов на основе шаблонов Google Docs",
+        "tour_description": "Создавайте документы из карточки сделки в один клик"
     },
-    "settings":{
-        "login":"Логин",
-        "api_key":"ключ API",
-        "account":"Аккаунт"
-    },
-    "advanced":{
-        "title":"Заголовок меню в настройках"
-    },
-    "salesbot":{
-        "button_title":"Заголовок кнопки",
-        "button_caption":"Описание кнопки",
-        "button_title_default_value":"Заголовок кнопки",
-        "button_caption_default_value":"Описание кнопки",
-        "text":"Текст",
-        "number":"Число",
-        "url":"URL",
-        "handler_name":"Название обработчика"
-    },
-    "dp":{
-        "message": "Сообщение"
+    "settings": {
+        "google_url": "URL Google Apps Script",
+        "url_description": "Введите URL вашего веб-приложения Google Apps Script"
     }
 }

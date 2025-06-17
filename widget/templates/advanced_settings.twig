@@ -1,5 +1,86 @@
 <form class="advanced-settings" id="{{ widget_code }}__advanced-settings">
 	<div class="{{ widget_code }}__white_block__description">
 		<h1>{{ title }}</h1>
+		
+		<!-- Document Template Settings -->
+		<div class="document-settings-section">
+			<h2>Настройки шаблона документа</h2>
+			
+			<div class="form-group">
+				<label for="template_file">Загрузить шаблон документа</label>
+				<input type="file" id="template_file" name="template_file" accept=".docx,.pdf">
+			</div>
+
+			<div class="form-group">
+				<label for="document_type">Тип документа</label>
+				<select id="document_type" name="document_type">
+					<option value="contract">Договор</option>
+					<option value="invoice">Счет</option>
+					<option value="act">Акт</option>
+				</select>
+			</div>
+		</div>
+
+		<!-- Field Mapping -->
+		<div class="field-mapping-section">
+			<h2>Сопоставление полей</h2>
+			<div class="mapping-fields">
+				<div class="form-group">
+					<label for="company_name">Название компании</label>
+					<select id="company_name" name="company_name">
+						<option value="company">Компания</option>
+						<option value="contact">Контакт</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="contact_person">Контактное лицо</label>
+					<select id="contact_person" name="contact_person">
+						<option value="main_contact">Основной контакт</option>
+						<option value="responsible">Ответственный</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<!-- Save Button -->
+		<div class="save-settings">
+			<button type="submit" class="button-input button-input_blue">
+				Сохранить настройки
+			</button>
+		</div>
 	</div>
 </form>
+
+<style>
+	.document-settings-section,
+	.field-mapping-section {
+		margin: 20px 0;
+		padding: 15px;
+		border: 1px solid #e5e5e5;
+		border-radius: 4px;
+	}
+
+	.form-group {
+		margin-bottom: 15px;
+	}
+
+	.form-group label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+
+	.form-group select,
+	.form-group input {
+		width: 100%;
+		padding: 8px;
+		border: 1px solid #ddd;
+		border-radius: 3px;
+	}
+
+	.save-settings {
+		margin-top: 20px;
+		text-align: right;
+	}
+</style>

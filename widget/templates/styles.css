@@ -1,0 +1,28 @@
+.widget_settings_block__fields {
+    padding: 15px;
+}
+
+.widget_settings_block__item_field {
+    margin-bottom: 20px;
+}
+
+.widget_settings_block__title_field {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.text-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.checkbox-title {
+    margin-top: 15px;
+}
+
+.control-checkbox__text {
+    font-size: 13px;
+    color: #2e363e;
+}

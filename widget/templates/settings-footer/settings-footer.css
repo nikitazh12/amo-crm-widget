@@ -1,0 +1,40 @@
+.settings-footer {
+    padding: 20px 0px;
+}
+
+.settings-footer__api-section {
+    margin-bottom: 15px;
+}
+
+.settings-footer__field-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.settings-footer__field-wrapper .text-input {
+    flex: 1;
+}
+
+.settings-footer__field-wrapper .button-input {
+    flex-shrink: 0;
+}
+
+.settings-footer__link {
+    color: #4c8bf7;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.settings-footer__link:hover {
+    text-decoration: underline;
+}
+
+.settings-footer__consent {
+    margin-top: 20px;
+}
+
+.control-checkbox__text {
+    font-size: 13px;
+    color: #2e363e;
+}

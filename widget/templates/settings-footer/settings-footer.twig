@@ -1,0 +1,23 @@
+<link type="text/css" rel="stylesheet" href="{{ settings.path }}/templates/{{ meta.filename }}/{{ meta.filename }}.css?v={{ settings.version }}">
+
+<div class="settings-footer">
+    <div class="settings-footer__api-section">
+        <div class="settings-footer__field-wrapper">
+            <input type="text" name="google_url" value="{{ google_url }}" class="text-input" placeholder="Введите URL вашего веб-приложения Google Apps Script">
+            <button class="button-input button-input_blue" id="save_google_url">Сохранить</button>
+        </div>
+        <a class="settings-footer__link" href="https://script.google.com/home" target="_blank">Получить Google Apps Script URL</a>
+    </div>
+    
+    <div class="settings-footer__consent">
+        <label class="control-checkbox">
+            <div class="control-checkbox__body">
+                <input type="checkbox" name="consent" class="control-checkbox__input" required>
+                <span class="control-checkbox__helper"></span>
+                <span class="control-checkbox__text">
+                    Согласен на передачу данных из amoCRM в Document Generator
+                </span>
+            </div>
+        </label>
+    </div>
+</div>
