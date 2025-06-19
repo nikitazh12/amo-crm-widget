@@ -1,55 +1,54 @@
 define(['jquery'], function ($) {
   var CustomWidget = function () {
     var self = this;
-    
+
     this.callbacks = {
-      render: function() {
-        // Добавляем кнопку только на странице сделки
-        if (AMOCRM.data.current_entity === 'leads') {
-          // Получаем настройки виджета
-          var settings = self.get_settings();
-          
-          // Добавляем кнопку
-          var $button = $('<button class="button-input">Создать документ</button>');
-          $('.card-fields__top-name-field').after($button);
-          
-          // Обработчик клика
-          $button.on('click', function() {
-            var lead = AMOCRM.data.current_card;
-            self.generateDocument(lead);
-          });
-        }
+      render: function () {
+        var settings = self.get_settings();
+
+        var observer = new MutationObserver(function () {
+          var $target = $('.card-fields__top-name-field');
+          if ($target.length && $('.button-input.generate-doc').length === 0) {
+            var $button = $('<button class="button-input generate-doc">Создать документ</button>');
+            $target.after($button);
+
+            $button.on('click', function () {
+              var lead = AMOCRM.data.current_card;
+              self.generateDocument(lead);
+            });
+
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+
         return true;
       },
-      
-      init: function() {
+
+      init: function () {
         return true;
       },
-      
-      settings: function() {
+
+      settings: function () {
         return self.render({
           href: '/templates/settings.twig',
           base_path: self.params.path,
-          load: function(template) {
+          load: function (template) {
             var $content = $(template.render({
               google_url: self.get_settings().google_url,
               secret: self.get_settings().secret
             }));
 
-            $content.find('#save_url').on('click', function() {
-              var url = $content.find('input[name="google_url"]').val();
-              self.save_settings({google_url: url});
-            });
-
             return $content;
           }
         });
       },
-      
-      onSave: function() {
+
+      onSave: function () {
         var url = $('input[name="google_url"]').val();
         if (!url) {
-          return false;  
+          return false;
         }
         return {
           google_url: url
@@ -57,8 +56,7 @@ define(['jquery'], function ($) {
       }
     };
 
-    // Добавляем метод сохранения URL
-    this.save_google_url = function(url) {
+    this.save_google_url = function (url) {
       if (!url) {
         AMOCRM.notifications.show_message({
           text: 'Введите URL Google Apps Script',
@@ -69,12 +67,12 @@ define(['jquery'], function ($) {
 
       AMOCRM.widgets.save({
         google_url: url
-      }).then(function() {
+      }).then(function () {
         AMOCRM.notifications.show_message({
           text: 'URL успешно сохранен',
           type: 'success'
         });
-      }).catch(function() {
+      }).catch(function () {
         AMOCRM.notifications.show_message({
           text: 'Ошибка при сохранении URL',
           type: 'error'
@@ -82,9 +80,9 @@ define(['jquery'], function ($) {
       });
     };
 
-    this.generateDocument = function(lead) {
+    this.generateDocument = function (lead) {
       var settings = self.get_settings();
-      
+
       if (!settings.google_url) {
         AMOCRM.notifications.show_message({
           text: 'URL Google Apps Script не настроен',
@@ -92,11 +90,9 @@ define(['jquery'], function ($) {
         });
         return;
       }
-      
-      // Показываем индикатор загрузки
+
       var $button = $('.button-input').text('Генерация...');
-      
-      // Собираем данные для документа
+
       var data = {
         lead_id: lead.id,
         lead_name: lead.name,
@@ -108,13 +104,12 @@ define(['jquery'], function ($) {
         created_at: lead.created_at
       };
 
-      // Отправляем запрос в Google Apps Script
       $.ajax({
         url: settings.google_url,
         method: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json',
-        success: function(response) {
+        success: function (response) {
           if (response.url) {
             window.open(response.url, '_blank');
             AMOCRM.notifications.show_message({
@@ -128,13 +123,13 @@ define(['jquery'], function ($) {
             });
           }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           AMOCRM.notifications.show_message({
             text: 'Ошибка при создании документа: ' + error,
             type: 'error'
           });
         },
-        complete: function() {
+        complete: function () {
           $button.text('Создать документ');
         }
       });
