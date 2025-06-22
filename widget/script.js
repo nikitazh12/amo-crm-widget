@@ -142,7 +142,7 @@ define(['jquery'], function ($) {
 });
 
 // Попытался улучшить сохранение поскольку боялся что то испорить то заделал всё в комент
-/*define(['jquery'], function ($) {
+/*define(['jquery'], function ($)) {
   var CustomWidget = function () {
     var self = this;
 
@@ -270,5 +270,59 @@ define(['jquery'], function ($) {
         });
         return;
       }
-
+      
+      
       var $button = $('.button-input').text('Генерация...');
+      $button.prop('disabled', true);
+
+      var data = {
+        lead_id: lead.id,
+        lead_name: lead.name,
+        company: lead.company ? lead.company.name : '',
+        price: lead.price,
+        responsible: lead.responsible_user_id,
+        contact: lead.main_contact ? lead.main_contact.name : '',
+        status: lead.status_id
+};
+
+AMOCRM.api.post('/generate-document', data).then(function (response) {
+        if (response.success) {
+          var documentUrl = response.document_url;
+          AMOCRM.notifications.show_message({
+            text: 'Документ успешно сгенерирован. Ссылка: ' + documentUrl,
+            type: 'success'
+          });
+
+          var $downloadButton = $('<a class="button-input" href="' + documentUrl + '" download>Скачать документ</a>');
+          $downloadButton.text('Скачать');
+          $button.after($downloadButton);
+        } else {
+          AMOCRM.notifications.show_message({
+            text: 'Ошибка при генерации документа: ' + response.error,
+            type: 'error'
+          });
+        }
+
+        $button.prop('disabled', false);
+      }).catch(function (error) {
+        AMOCRM.notifications.show_message({
+          text: 'Ошибка при генерации документа: ' + error,
+          type: 'error'
+        });
+        $button.prop('disabled', false);
+      });
+    };
+
+    this.get_settings = function () {
+      return {
+        google_url: AMOCRM.settings.get('google_url'),
+        yandex_url: AMOCRM.settings.get('yandex_url')
+      };
+    };
+  };
+
+  return CustomWidget;
+});
+    }
+  }
+};
