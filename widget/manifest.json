@@ -13,7 +13,7 @@
       "email": "support@example.com"
     }
   },
-  "locations": ["lcard-1", "settings"],
+  "locations": ["card", "settings"],
   "tour": {
     "is_tour": true,
     "tour_images": {
